@@ -51,7 +51,7 @@ const BookType = new GraphQLObjectType({
         author: {
             type: AuthorType,
             resolve: (book) => {
-                return authors.find(author => author.id === book.authorId )
+                return authors.filter(author => author.id === book.id)
             }
         }
     })
@@ -102,7 +102,7 @@ const RootMutationType = new GraphQLObjectType({
                 authorId: {type: new GraphQLNonNull(GraphQLInt)}
             },
             resolve: (parent,args) => {
-                const book ={
+                const book = {
                     id: books.length + 1,
                     name: args.name,
                     authorId: args.authorId
